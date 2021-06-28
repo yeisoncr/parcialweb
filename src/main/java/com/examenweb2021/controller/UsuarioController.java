@@ -3,6 +3,7 @@ package com.examenweb2021.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -67,9 +68,10 @@ public class UsuarioController {
 			u.setPass(password);
 			u.setRol(r);
 			usuarioService.save(u);
+			u=usuarioService.findByUsuario(usuario);
 			
 			String mensaje = "hola " + usuario 					
-					+ "\ningrese usando del siguente enlace para activar su cuenta: http://localhost:8085/activar cuenta";
+					+ "\ningrese usando del siguente enlace para activar su cuenta: http://localhost:8085//activacioCuenta/"+u.getId();
 
 			try {
 				model.addAttribute("info","\nSe ha enviado un correo a: "+email+"para la activación de su cuenta");
@@ -78,11 +80,27 @@ public class UsuarioController {
 				System.out.println("no enviado");
 				System.out.println(e);
 			}
-			
-			return "redirect:/login";
+			String cad="se ha enviado un correo a:"+ usuario+ " para la activación de su cuenta";
+			model.addAttribute("info",cad);
+			return "login";
 		}
 
-		return "redirect:nuevoUsuario";
+		model.addAttribute("info", "el usuario ya existe");
+		model.addAttribute("roles", rolService.findAll());
+		return "nuevoUsuario";
+	}
+	
+	
+	@RequestMapping(value ="/activacioCuenta/{idusuario}" )
+	public String activarCuenta(Model model,@PathVariable(value = "idusuario") Integer id) {
+		Usuario u = usuarioService.findOne(id);
+		if(u!=null) {
+			u.setState((short) 1);
+			usuarioService.save(u);
+			model.addAttribute("info","usuario activado por favor inicie sesión");
+			return "login";
+		}
+		return "login";
 	}
 
 }
