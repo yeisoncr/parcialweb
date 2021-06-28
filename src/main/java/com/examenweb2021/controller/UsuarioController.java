@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.examenweb2021.model.entities.Usuario;
 import com.examenweb2021.model.entities.Rol;
 import com.examenweb2021.model.service.RolServiceImp;
+import com.examenweb2021.model.service.SendMailService;
 import com.examenweb2021.model.service.UsuarioServiceImp;
+
 
 @Controller
 public class UsuarioController {
@@ -19,10 +21,27 @@ public class UsuarioController {
 
 	@Autowired
 	private RolServiceImp<Rol> rolService;
+	
+
+	@Autowired
+	private SendMailService sendMail;
 
 	@RequestMapping(value = {"/","/login"})
 	public String n() {
 		return "login";
+	}
+	
+	@RequestMapping(value = "/ingresar")
+	public String ingresar(Model model,@RequestParam("username") String usuario, 
+			@RequestParam("password") String password) {
+		Usuario u= usuarioService.findByUsuario(usuario);
+		if(u!=null) {
+			if(u.getPass()==password) {
+				return "inicio";
+			}
+		}
+		model.addAttribute("info","usuario o contraseña incorrectos");
+		return "/";
 	}
 
 	@RequestMapping(value = "/nuevoUsuario")
@@ -34,7 +53,8 @@ public class UsuarioController {
 	@RequestMapping(value = "/registrarUsuario")
 	public String registrar(@RequestParam("username") String usuario, 
 			@RequestParam("password") String password,
-			@RequestParam("tipoU") String tipo, @RequestParam("email") String email) {
+			@RequestParam("tipoU") String tipo, @RequestParam("email") String email,
+			Model model) {
 
 		if (usuarioService.findByUsuario(usuario) == null) {
 			Usuario u = new Usuario();
@@ -47,6 +67,18 @@ public class UsuarioController {
 			u.setPass(password);
 			u.setRol(r);
 			usuarioService.save(u);
+			
+			String mensaje = "hola " + usuario 					
+					+ "\ningrese usando del siguente enlace para activar su cuenta: http://localhost:8085/activar cuenta";
+
+			try {
+				model.addAttribute("info","\nSe ha enviado un correo a: "+email+"para la activación de su cuenta");
+				sendMail.sendMail("webyeison482@gmail.com", email, "Activación de cuenta", mensaje);
+			} catch (Exception e) {
+				System.out.println("no enviado");
+				System.out.println(e);
+			}
+			
 			return "redirect:/login";
 		}
 
