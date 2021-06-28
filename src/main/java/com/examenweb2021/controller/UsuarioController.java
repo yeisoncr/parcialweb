@@ -38,8 +38,14 @@ public class UsuarioController {
 		Usuario u= usuarioService.findByUsuario(usuario);
 		if(u!=null) {
 			if(u.getPass()==password) {
-				return "inicio";
+				if(u.getState()==1) {
+					return "inicio";
+				}
+				model.addAttribute("info","esta cuenta no ha sido activada");
+				return "login";
 			}
+			model.addAttribute("info","usuario o contraseña incorrectos");
+			return "login";
 		}
 		model.addAttribute("info","usuario o contraseña incorrectos");
 		return "/";
@@ -59,7 +65,7 @@ public class UsuarioController {
 
 		if (usuarioService.findByUsuario(usuario) == null) {
 			Usuario u = new Usuario();
-			Rol r = rolService.findOne(Integer.parseInt(tipo));
+			Rol r = rolService.findOne(2);
 
 			u.setUsuario(usuario);
 			u.setEmail(email);
@@ -80,7 +86,7 @@ public class UsuarioController {
 				System.out.println("no enviado");
 				System.out.println(e);
 			}
-			String cad="se ha enviado un correo a:"+ usuario+ " para la activación de su cuenta";
+			String cad="se ha enviado un correo a: "+ usuario+ " para la activación de su cuenta";
 			model.addAttribute("info",cad);
 			return "login";
 		}

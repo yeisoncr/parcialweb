@@ -21,16 +21,7 @@
 				<div>
 					<input type="text" name="username" id="username" class="form-control"
 						placeholder="nombre completo" required />
-				</div>
-				
-				<div>
-					<select name="tipoU" >
-						<optgroup label="selecione un tipo de usuario" >
-							<option th:each="rol: ${roles}" th:value="${rol.id}"
-								th:text="${rol.description}" th:object="${rol}"></option>
-						</optgroup>
-					</select>
-				</div>
+				</div>				
 
 				<div>
 					<input type="password" name="password" id="password"
