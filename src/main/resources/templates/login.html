@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title th:text="${titulo}">Insert title here</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="../css/style5.css">
+</head>
+<body>
+	
+	<div id="divLogin" class="container">
+
+		<img id="imgFondo" src="../images/descarga.png">
+		<br> 
+		<br>
+		<h2 th:text="${titulo}"></h2>
+		<div>
+			<form th:action="@{/login}" method="post">
+				<div class="form-group row">
+					<div>
+						<input type="text" name="username" id="username"
+							class="form-control" placeholder="correo electronico" autofocus
+							required />
+
+					</div>
+					<div>
+						<input type="password" name="password" id="password"
+							class="form-control" placeholder="ingrese su contraseña" required />
+					</div>
+					<div>
+						<input type="submit" value="Ingresar" class="btn btn-primary" />
+						<a th:href="@{/nuevoUsuario}" class="btn btn-primary">Resgitrar</a>
+					</div>
+
+				</div>
+				<a th:href="@{/recuperar}">Olvidé mi contraseña</a>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
+
+
+
+

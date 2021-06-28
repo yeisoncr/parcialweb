@@ -18,9 +18,9 @@ public class UsuarioServiceImp<T> implements IGenericServiceUser<T> {
 	
 	@Transactional(readOnly = true)
 	@Override
-	public T findByUsername(String username) {		
+	public T findByUsuario(String usuario) {		
 		// TODO Auto-generated method stub
-		return (T) usuarioDao.findByUsername(username);
+		return (T) usuarioDao.findByUsuario(usuario);
 	}
 	
 	

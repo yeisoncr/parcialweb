@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface IGenericServiceUser<T> extends Serializable{
 
-	T findByUsername(String username);
+	T findByUsuario(String usuario);
 	
 	T findOne(Integer id);
 

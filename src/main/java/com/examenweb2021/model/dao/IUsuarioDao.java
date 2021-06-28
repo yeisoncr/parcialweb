@@ -5,5 +5,5 @@ import com.examenweb2021.model.entities.Usuario;
 
 
 public interface IUsuarioDao extends CrudRepository <Usuario, Integer>{
-	public Usuario findByUsername(String usuario);
+	public Usuario findByUsuario(String usuario);
 }
