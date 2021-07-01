@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `conexiones` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `conexiones`;
 -- MySQL dump 10.13  Distrib 8.0.18, for Win64 (x86_64)
 --
 -- Host: localhost    Database: conexiones
@@ -34,13 +32,12 @@ CREATE TABLE `connectiontoken` (
   `port` smallint DEFAULT NULL COMMENT 'Define el puerto utilizado para la conexión al servidor de\nbase de datos',
   `user` int DEFAULT NULL,
   `state` smallint DEFAULT NULL,
-  `type` varchar(20) DEFAULT NULL COMMENT 'Define el tipo de driver a utilizar en la base de datos',
+  `type` int DEFAULT NULL COMMENT 'Define el tipo de driver a utilizar en la base de datos',
   PRIMARY KEY (`id`),
   KEY `FK_connectiontoken_typedb` (`type`),
   KEY `FK_connectiontoken_usuario` (`user`),
-  CONSTRAINT `FK_connectiontoken_typedb` FOREIGN KEY (`type`) REFERENCES `typedb` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `FK_connectiontoken_usuario` FOREIGN KEY (`user`) REFERENCES `usuario` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Almacena la información del Token de Conexión a al base de datos. Este proceso se\nrealiza por cada conexión que se realice a cada base de datos para ser utilizada y enviarla al reporte.';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Almacena la información del Token de Conexión a al base de datos. Este proceso se\nrealiza por cada conexión que se realice a cada base de datos para ser utilizada y enviarla al reporte.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,6 +46,7 @@ CREATE TABLE `connectiontoken` (
 
 LOCK TABLES `connectiontoken` WRITE;
 /*!40000 ALTER TABLE `connectiontoken` DISABLE KEYS */;
+INSERT INTO `connectiontoken` VALUES (1,'22','11','22','12','11',2,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `connectiontoken` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -159,6 +157,7 @@ CREATE TABLE `typedb` (
 
 LOCK TABLES `typedb` WRITE;
 /*!40000 ALTER TABLE `typedb` DISABLE KEYS */;
+INSERT INTO `typedb` VALUES ('','mysql2','1','22'),('1','mysql','phpadmin','nada');
 /*!40000 ALTER TABLE `typedb` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -173,13 +172,13 @@ CREATE TABLE `usuario` (
   `id` int NOT NULL AUTO_INCREMENT,
   `usuario` varchar(20) DEFAULT NULL COMMENT 'Define el usuario utilizado en el sistema, el cual\\\\nno puede ser cambiado porque genera estructuras de datos y demas.',
   `email` varchar(100) DEFAULT NULL,
-  `pass` varchar(50) DEFAULT NULL,
+  `pass` varchar(150) DEFAULT NULL,
   `rol_id` int DEFAULT NULL,
   `state` smallint DEFAULT NULL COMMENT 'Define el estado del usuario, que puede ser sin activar,\nbloqueado u otro estado disponible.',
   PRIMARY KEY (`id`),
   KEY `FK_usuario_rol` (`rol_id`),
   CONSTRAINT `FK_usuario_rol` FOREIGN KEY (`rol_id`) REFERENCES `rol` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Almacena la información de los usuarios del sistema';
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Almacena la información de los usuarios del sistema';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -188,6 +187,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` VALUES (12,'admin','admin@gmail.com','$2a$10$OI72wdca7Titw.eVIJWWlOxTCr2ugmCdKLi8W2Inz011rtGXCKpsm',1,1),(13,'user3','user@gmail.com','$2a$10$OI72wdca7Titw.eVIJWWlOxTCr2ugmCdKLi8W2Inz011rtGXCKpsm',2,1);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -200,4 +200,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-28 13:07:10
+-- Dump completed on 2021-07-01 17:46:36
