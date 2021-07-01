@@ -25,7 +25,7 @@ a, a:hover, a:focus {
 
 .navbar {
 	padding: 15px 10px;
-	background: #D90606;
+	background: #00ffff;
 	border: none;
 	border-radius: 0;
 	margin-bottom: 40px;
@@ -319,12 +319,3 @@ a.article, a.article:hover {
   
 }
 
-#footer {
-	position: fixed;
-	bottom: 0px;
-	height: 4%;
-	width: 100%; 
-	background: white;	
-	bottom: 0; 
-    color: white;
-}
