@@ -22,19 +22,21 @@ public class AdminController {
 
 	
 	@GetMapping(value = "/tiposDeBases")
-	public String registarTiposDB() {
-		System.out.println("nada");
+	public String registarTiposDB(Map<String, Object>model) {
+		Typedb db= new Typedb();
+		model.put("TipoDB", db);
+		model.put("titulo","Tipos de bases de datos");
 		return "nuevoTipoDB";
 	}
 	
 	
 	@RequestMapping(value = "/crearTipoDB")
-	public String guardarCliente(Map<String, Object>model) {
+	public String guardarTypeDB(Map<String, Object>model) {
 		Typedb db= new Typedb();
-		model.put("cliente", db);
+		model.put("TipoDB", db);
 		model.put("titulo","Tipos de bases de datos");
 		
-		return "crearCliente";
+		return "crearTipoDB";
 	}
 	
 	@RequestMapping(value = "/crearTipoDB", method = RequestMethod.POST)
@@ -48,7 +50,34 @@ public class AdminController {
 		return "redirect:index";
 	}
 
+	@GetMapping(value = "/tiposDeBases")
+	public String registarToken(Map<String, Object>model) {
+		Typedb db= new Typedb();
+		model.put("TipoDB", db);
+		model.put("titulo","Tipos de bases de datos");
+		return "nuevoTipoDB";
+	}
 	
+	
+	@RequestMapping(value = "/crearTipoDB")
+	public String guardarToken(Map<String, Object>model) {
+		Typedb db= new Typedb();
+		model.put("TipoDB", db);
+		model.put("titulo","Tipos de bases de datos");
+		
+		return "crearTipoDB";
+	}
+	
+	@RequestMapping(value = "/crearTipoDB", method = RequestMethod.POST)
+	public String guardarT(@Validated Typedb typedb, BindingResult result, Model model) {
+		
+		if(result.hasErrors()) {
+			model.addAttribute("titulo","crear cliente");
+			return "redirect:nuevoCliente";
+		}
+		typedbDao.save(typedb);
+		return "redirect:index";
+	}
 	
 	
 }

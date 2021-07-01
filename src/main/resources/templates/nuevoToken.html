@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="index :: head">
+<meta http-equiv=”Content-Type” content=”text/html; charset="utf-8" />
+</head>
+<body>
+	<div th:replace="index :: menu"></div>
+	<h2 th:text="${titulo}" class="text-secondary"></h2>
+	<br>
+
+	<form th:action="@{/crearToken}" th:object="${token}" method="post">
+
+		<div class="form-group row">
+			<label class="col-sm-2 col-form-label">host</label>
+			<div class="col-sm-6">
+				<input type="text" th:field="*{host}" name="host"
+					class="form-control" required />
+			</div>
+		</div>
+		<div class="form-group row">
+			<label class="col-sm-2 col-form-label">userdb</label>
+			<div class="col-sm-6">
+				<input type="text" th:field="*{userdb}" name="userdb"
+					class="form-control" required />
+			</div>
+		</div>
+		<div class="form-group row">
+			<label class="col-sm-2 col-form-label">pass</label>
+			<div class="col-sm-6">
+				<input type="text" th:field="*{pass}" name="pass"
+					class="form-control" required />
+			</div>
+		</div>
+		<div class="form-group row">
+			<label class="col-sm-2 col-form-label">db</label>
+			<div class="col-sm-6">
+				<input type="text" th:field="*{db}" name="db" class="form-control"
+					required />
+			</div>
+		</div>
+		<div class="form-group row">
+			<label class="col-sm-2 col-form-label">token</label>
+			<div class="col-sm-6">
+				<input type="text" th:field="*{token}" name="token"
+					class="form-control" required />
+			</div>
+		</div>
+		<div class="form-group row">
+			<label class="col-sm-2 col-form-label">port</label>
+			<div class="col-sm-6">
+				<input type="text" th:field="*{port}" name="port"
+					class="form-control" required />
+			</div>
+		</div>
+		<div class="form-group row">
+			<label class="col-sm-2 col-form-label">user</label>
+			<div class="col-sm-6">
+				<input type="text" th:field="*{user}" name="user"
+					class="form-control" required />
+			</div>
+		</div>
+
+		<select name="type">
+			<optgroup label="selecione un tipo de base de datos">
+				<option th:each="tipo: ${tipoDB}" th:value="${tipo.idtipodocumento}"
+					th:text="${tipo.descripcion}" th:object="${tipo}"
+					th:field="*{type}"></option>
+			</optgroup>
+		</select>
+
+
+
+
+		<div class="form-group row">
+			<div class="col-sm-6">
+				<input type="submit" value="Guardar" class="btn btn-primary" />
+			</div>
+		</div>
+		<input type="hidden" th:field="*{id}" />
+	</form>
+
+	</div>
+	</div>
+</body>
+<footer th:replace="index :: footer"></footer>
+</html>

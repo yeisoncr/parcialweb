@@ -40,6 +40,9 @@ public class JpaUserDetailsService implements UserDetailsService {
         	return null;
         }
         
+        if(user.getState()==0) {
+        	return null;
+        }
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
         
         Rol role= user.getRol();

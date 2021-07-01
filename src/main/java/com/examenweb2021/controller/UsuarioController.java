@@ -46,26 +46,7 @@ public class UsuarioController {
 	public String indes() {
 		return "index";
 	}
-	
-	@RequestMapping(value = "/ingresar")
-	public String ingresar(Model model,@RequestParam("username") String usuario, 
-			@RequestParam("password") String password) {
-		Usuario u= usuarioService.findByUsuario(usuario);
-		if(u!=null) {			
-			if(!u.getPass().equalsIgnoreCase(password)) {				
-				if(u.getState()==1) {
-					System.out.println("correcto");
-					return "redirect:login";
-				}
-				model.addAttribute("info","esta cuenta no ha sido activada");
-				return "login";
-			}
-			model.addAttribute("info","usuario o contraseña incorrectos");
-			return "login";
-		}
-		model.addAttribute("info","usuario o contraseña incorrectos");
-		return "login";
-	}
+		
 
 	@RequestMapping(value = "/nuevoUsuario")
 	public String nuevoUsuario(Model model) {
