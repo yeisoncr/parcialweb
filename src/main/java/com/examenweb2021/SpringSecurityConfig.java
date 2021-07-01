@@ -9,7 +9,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import com.visitas.model.service.JpaUserDetailsService;
+
+import com.examenweb2021.model.service.JpaUserDetailsService;
+
 
 
 @EnableGlobalMethodSecurity(securedEnabled=true, prePostEnabled=true)
@@ -27,9 +29,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		http.authorizeRequests().antMatchers("/registrarUsuario","/login","/ufps","/unisimon","/css/**").permitAll()		
-		.antMatchers("/","/index").hasAnyAuthority("usuario","administrador")
-		.antMatchers("/editarUsuario").hasAnyAuthority("administrador")
+		http.authorizeRequests().antMatchers("/ingresar","/nuevoUsuario","/registrarUsuario","/login","/css/**","/images/**").permitAll()		
+		.antMatchers("/index").hasAnyAuthority("Usuario","Administrador")
+		.antMatchers("/tiposDeBases","/crearTipoDB").hasAnyAuthority("Administrador")
 		.anyRequest().authenticated()		
 		.and()
 		    .formLogin()

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="index :: head">
+<meta http-equiv=”Content-Type” content=”text/html; charset="utf-8" />
+</head>
+<body>
+	<div th:replace="index :: menu"></div>
+	<h2 th:text="${titulo}" class="text-secondary"></h2>
+	<br>
+
+	<form th:action="@{/crearTipoDB}" th:object="${TipoDB}" method="post">
+
+		<div class="form-group row">
+			<label class="col-sm-2 col-form-label">descripción</label>
+			<div class="col-sm-6">
+				<input type="text" th:field="*{description}" name="descrption" class="form-control" required />
+			</div>
+		</div>		
+		<div class="form-group row">
+			<label class="col-sm-2 col-form-label">driver</label>
+			<div class="col-sm-6">
+				<input type="text" th:field="*{driver}" name="driver" class="form-control" required />
+			</div>
+		</div>
+		<div class="form-group row">
+			<label class="col-sm-2 col-form-label">adicional</label>
+			<div class="col-sm-6">
+				<input type="text" th:field="*{adicional}" name="adicional" class="form-control" required />
+			</div>
+		</div>
+		
+
+		<div class="form-group row">
+			<div class="col-sm-6">
+				<input type="submit" value="Guardar" class="btn btn-primary" />
+			</div>
+		</div>
+		<input type="hidden" th:field="*{id}"/>
+	</form>
+
+	</div>
+	</div>
+</body>
+<footer th:replace="index :: footer"></footer>
+</html>

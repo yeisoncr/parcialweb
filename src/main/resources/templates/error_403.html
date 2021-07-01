@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv=”Content-Type” content=”text/html; charset="utf-8" />
+</head>
+<body>	
+	<h5>
+		Los sentimos <span th:text="${#authentication.name}"></span>, NO
+		tienes permisos para acceder a este recurso.
+	</h5>
+	<a th:href="@{/login}" class="btn btn-outline-light" role="button">Ir
+		al inicio</a>
+</body>
+</html>

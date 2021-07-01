@@ -311,6 +311,14 @@ a.article, a.article:hover {
 #example2{
 	width: 60%;
 }
+
+.dropdown-content {
+ 
+  position: relative;
+  width: 20%;
+  
+}
+
 #footer {
 	position: fixed;
 	bottom: 0px;
